@@ -1,2 +1,2 @@
-# web_dev_p1
-First website 
+# web_projects
+all projects 
