@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col mx-auto my-5">
+          Column  <input id="col" value="10">
+          Row  <input id="row" value="5">
+          <button type="button" onclick="generate()" class="btn btn-primary">Generate</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col mx-auto ">
+          <div id="out">
+             
+            </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+        function makeTable(col,row)
+        {
+          
+          
+          var tab='<table class="table">'+
+                  '<thead class="thead-dark">'+
+                  '<tr>'
+          for(i=0;i<col;i++)
+          {
+            tab+=' <th scope="col">'+(i+1)+'</th>'
+          }
+
+          tab+='</tr> </thead><tbody>'
+
+          for(i=0;i<row;i++)
+          {
+            tab+='<tr>'
+                for(j=0;j<col;j++)
+                {
+                  tab+='<td>'+(j+1)+'</td>'
+                }
+            tab+='</tr>'
+          }       
+          tab+='</table>'
+          return tab;
+          
+        }
+        function generate()
+        {
+          document.querySelector("#out").innerHTML=
+                makeTable(  
+                  document.querySelector("#col").value,
+                  document.querySelector("#row").value
+                  );
+          
+        }
+      </script>
+    <script src="node_modules/jquery/dist/jquery.min.js""></script>
+    <script src="node_modules/popper.js/dist/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js "></script>
+  </body>
+</html>

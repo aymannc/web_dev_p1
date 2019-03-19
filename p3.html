@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+    .card ,#table
+    {
+      margin-top: 50px;
+    }
+    input,select,#save{
+        margin: 10px;
+    }
+    .form
+    {
+        margin-left: 10px;
+    }
+   
+    </style>
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="container">
+    <h1>LIST OF USERS</h1>
+    <button type="button" id="switchBtn" class="btn btn-outline-success" onclick="showTable()">Table</button>
+    <div class="row"> 
+
+    </div>
+    <div id="table" class="row" style="display: none">
+        <div class="col mx-auto ">
+            <div id="out">
+                
+            </div>
+        </div>
+    </div>
+    <div class="column m-auto " >
+        <div id="layout" style="width: 18rem ; display: none">
+          <div class="card">
+              
+              <img class="card-img-top" src="" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title"></h4>
+                <p class="card-text"></p>
+                <button type="button" id="modf" class="btn btn-outline-info" ></button>
+              </div>
+            
+              <div class="form" style="display: none">
+                    <select id="selector">
+                        <option value="Mr">Mr</option>
+                        <option value="Mrs">Mrs</option>
+                        <option value="Ms">Ms</option>
+                        <option value="Miss">Miss</option>
+                    </select><br>
+                    Name : <input id="name">
+                    Email : <input id="email">
+                    Pic url : <input id="pic">
+                <button type="button" id="save" class="btn btn-outline-danger">Save</button>
+                <button type="button" id="cancel" class="btn btn-outline-primary">Cancel</button>
+            </div>
+            </div>
+        
+        </div>       
+    </div>
+    
+  </div>
+   
+ 
+    <script>
+      var users =[
+    {
+        "gender": "female",
+        "name": {
+            "title": "miss",
+            "first": "léa",
+            "last": "roger"
+        },
+        "email": "léa.roger@example.com",
+        "picture": {
+            "large": "https://randomuser.me/api/portraits/women/25.jpg",
+            "medium": "https://randomuser.me/api/portraits/med/women/25.jpg",
+            "thumbnail": "https://randomuser.me/api/portraits/thumb/women/25.jpg"
+        }
+    },
+    {
+        "gender": "female",
+        "name": {
+            "title": "miss",
+            "first": "océane",
+            "last": "andre"
+        },
+        "email": "océane.andre@example.com",
+        "picture": {
+            "large": "https://randomuser.me/api/portraits/women/4.jpg",
+            "medium": "https://randomuser.me/api/portraits/med/women/4.jpg",
+            "thumbnail": "https://randomuser.me/api/portraits/thumb/women/4.jpg"
+        }
+    },
+    {
+        "gender": "female",
+        "name": {
+            "title": "miss",
+            "first": "lilou",
+            "last": "robin"
+        },
+        "email": "lilou.robin@example.com",
+        "picture": {
+            "large": "https://randomuser.me/api/portraits/women/48.jpg",
+            "medium": "https://randomuser.me/api/portraits/med/women/48.jpg",
+            "thumbnail": "https://randomuser.me/api/portraits/thumb/women/48.jpg"
+        }
+    },
+    {
+        "gender": "male",
+        "name": {
+            "title": "mr",
+            "first": "soan",
+            "last": "berger"
+        },
+        "email": "soan.berger@example.com",
+        "picture": {
+            "large": "https://randomuser.me/api/portraits/men/58.jpg",
+            "medium": "https://randomuser.me/api/portraits/med/men/58.jpg",
+            "thumbnail": "https://randomuser.me/api/portraits/thumb/men/58.jpg"
+        }
+    },
+    {
+        "gender": "female",
+        "name": {
+            "title": "mrs",
+            "first": "leana",
+            "last": "rousseau"
+        },
+        "email": "leana.rousseau@example.com",
+        "picture": {
+            "large": "https://randomuser.me/api/portraits/women/50.jpg",
+            "medium": "https://randomuser.me/api/portraits/med/women/50.jpg",
+            "thumbnail": "https://randomuser.me/api/portraits/thumb/women/50.jpg"
+        }
+    },
+    {
+        "gender": "male",
+        "name": {
+            "title": "mr",
+            "first": "ethan",
+            "last": "deschamps"
+        },
+        "email": "ethan.deschamps@example.com",
+        "picture": {
+            "large": "https://randomuser.me/api/portraits/men/0.jpg",
+            "medium": "https://randomuser.me/api/portraits/med/men/0.jpg",
+            "thumbnail": "https://randomuser.me/api/portraits/thumb/men/0.jpg"
+        }
+    },
+    {
+        "gender": "female",
+        "name": {
+            "title": "mrs",
+            "first": "emmy",
+            "last": "martin"
+        },
+        "email": "emmy.martin@example.com",
+        "picture": {
+            "large": "https://randomuser.me/api/portraits/women/68.jpg",
+            "medium": "https://randomuser.me/api/portraits/med/women/68.jpg",
+            "thumbnail": "https://randomuser.me/api/portraits/thumb/women/68.jpg"
+        }
+    },
+    {
+        "gender": "male",
+        "name": {
+            "title": "mr",
+            "first": "marin",
+            "last": "bernard"
+        },
+        "email": "marin.bernard@example.com",
+        "picture": {
+            "large": "https://randomuser.me/api/portraits/men/53.jpg",
+            "medium": "https://randomuser.me/api/portraits/med/men/53.jpg",
+            "thumbnail": "https://randomuser.me/api/portraits/thumb/men/53.jpg"
+        }
+    },
+    {
+        "gender": "female",
+        "name": {
+            "title": "ms",
+            "first": "séléna",
+            "last": "leclerc"
+        },
+        "email": "séléna.leclerc@example.com",
+        "picture": {
+            "large": "https://randomuser.me/api/portraits/women/47.jpg",
+            "medium": "https://randomuser.me/api/portraits/med/women/47.jpg",
+            "thumbnail": "https://randomuser.me/api/portraits/thumb/women/47.jpg"
+        }
+    },
+    {
+        "gender": "female",
+        "name": {
+            "title": "mrs",
+            "first": "amelia",
+            "last": "pierre"
+        },
+        "email": "amelia.pierre@example.com",
+        "picture": {
+            "large": "https://randomuser.me/api/portraits/women/34.jpg",
+            "medium": "https://randomuser.me/api/portraits/med/women/34.jpg",
+            "thumbnail": "https://randomuser.me/api/portraits/thumb/women/34.jpg"
+        }
+    },
+    {
+        "gender": "male",
+        "name": {
+            "title": "mr",
+            "first": "alexandre",
+            "last": "hubert"
+        },
+        "email": "alexandre.hubert@example.com",
+        "picture": {
+            "large": "https://randomuser.me/api/portraits/men/33.jpg",
+            "medium": "https://randomuser.me/api/portraits/med/men/33.jpg",
+            "thumbnail": "https://randomuser.me/api/portraits/thumb/men/33.jpg"
+        }
+    },
+    {
+        "gender": "male",
+        "name": {
+            "title": "mr",
+            "first": "elias",
+            "last": "robert"
+        },
+        "email": "elias.robert@example.com",
+        "picture": {
+            "large": "https://randomuser.me/api/portraits/men/45.jpg",
+            "medium": "https://randomuser.me/api/portraits/med/men/45.jpg",
+            "thumbnail": "https://randomuser.me/api/portraits/thumb/men/45.jpg"
+        }
+    },
+    {
+        "gender": "male",
+        "name": {
+            "title": "mr",
+            "first": "milan",
+            "last": "gauthier"
+        },
+        "email": "milan.gauthier@example.com",
+        "picture": {
+            "large": "https://randomuser.me/api/portraits/men/66.jpg",
+            "medium": "https://randomuser.me/api/portraits/med/men/66.jpg",
+            "thumbnail": "https://randomuser.me/api/portraits/thumb/men/66.jpg"
+        }
+    },
+    {
+        "gender": "male",
+        "name": {
+            "title": "mr",
+            "first": "nino",
+            "last": "legrand"
+        },
+        "email": "nino.legrand@example.com",
+        "picture": {
+            "large": "https://randomuser.me/api/portraits/men/51.jpg",
+            "medium": "https://randomuser.me/api/portraits/med/men/51.jpg",
+            "thumbnail": "https://randomuser.me/api/portraits/thumb/men/51.jpg"
+        }
+    },
+    {
+        "gender": "male",
+        "name": {
+            "title": "mr",
+            "first": "noham",
+            "last": "nguyen"
+        },
+        "email": "noham.nguyen@example.com",
+        "picture": {
+            "large": "https://randomuser.me/api/portraits/men/99.jpg",
+            "medium": "https://randomuser.me/api/portraits/med/men/99.jpg",
+            "thumbnail": "https://randomuser.me/api/portraits/thumb/men/99.jpg"
+        }
+    },
+    {
+        "gender": "female",
+        "name": {
+            "title": "mrs",
+            "first": "louane",
+            "last": "noel"
+        },
+        "email": "louane.noel@example.com",
+        "picture": {
+            "large": "https://randomuser.me/api/portraits/women/32.jpg",
+            "medium": "https://randomuser.me/api/portraits/med/women/32.jpg",
+            "thumbnail": "https://randomuser.me/api/portraits/thumb/women/32.jpg"
+        }
+    }
+]
+      var keys = Object.keys(users[0])  
+      function showUsers(usersArray,id)
+      {
+        
+        var card=document.querySelector('.container .column')
+        
+        
+        let i=0;
+        var cr=[];
+        
+        users.forEach(user => {
+        
+          cr[i] =card.cloneNode(true)
+          cr[i].querySelector("#layout").setAttribute("style","width: 18rem; display: block")
+
+          cr[i].querySelector(".card").setAttribute("id","c"+i)
+          cr[i].querySelector('.card-img-top').src=user.picture.large
+          cr[i].querySelector('.card-title').innerText=user.name.title.toUpperCase()+" "+user.name.last+" "+user.name.first
+          cr[i].querySelector('.card-text').innerText=user.email
+          cr[i].querySelector('#modf').innerText="Modify Me"
+          cr[i].querySelector('#modf').setAttribute('onclick',"modifyMe("+i+")")
+
+          document.querySelector(id).appendChild(cr[i++])
+        });
+        
+      
+      }
+      function objToString (obj) {
+        var str = '';
+        for (var p in obj) {
+          str +=p+" : "+obj[p]+"<br>"
+        }
+        return str;
+      }
+      function showTable()
+      {
+        var row=document.querySelector(".row")
+        var btn=document.querySelector("#switchBtn")
+        var table=document.querySelector("#table")
+        
+        var tab='<table class="table">'+
+                  '<thead class="thead-dark">'+
+                  '<tr><th>ID</th>' 
+        for(i in keys){tab+=' <th scope="col">'+keys[i].toUpperCase()+'</th>'}
+        tab+='</tr> </thead><tbody>'
+
+        for(i=0;i<users.length;i++){
+          tab+='<tr><td>'+i+'</td>'
+        for (x in keys) {
+          var output=users[i][keys[x]]
+          if(typeof output === "object")
+          {
+            tab+='<td>'+objToString(output)+'</td>'
+          }
+          else
+            tab+='<td>'+output+'</td>'  
+        }
+        tab+='</tr>'
+        }       
+        tab+='</table>'
+        table.innerHTML=tab
+        if(row.style.display!="none")
+        {
+          row.setAttribute("style","display: none")
+          table.setAttribute("style","display: ")
+          btn.innerHTML="Grid"
+
+        }else
+        {
+          row.setAttribute("style","display: ")
+          table.setAttribute("style","display: none")
+          btn.innerHTML="Table"
+        }
+      }
+      function modifyMe(id)
+      {
+        var cardID="#c"+id
+        var card=document.querySelector(cardID)
+
+        card.querySelector(".card-body").setAttribute("style","display: none")
+        card.querySelector(".form").setAttribute("style","display: ")
+        
+        document.querySelector(cardID+" #name").value=users[id].name.first+" "+users[id].name.last
+        document.querySelector(cardID+" #email").value=users[id].email
+        document.querySelector(cardID+" #pic").value=users[id].picture.large
+
+
+        card.querySelector('#save').setAttribute('onclick',"save("+id+")")
+        card.querySelector('#cancel').setAttribute('onclick',"cancel('#c"+id+"')")
+        
+      }
+      function save(id){
+        
+        var cardID="#c"+id
+        var card=document.querySelector(cardID)
+
+        e = document.querySelector(cardID+" #selector");
+
+        users[id].name.title= e.options[e.selectedIndex].value;   
+
+        if(["Ms","Miss"].includes(e.options[e.selectedIndex].value))
+        {
+            users[id].gender="female"
+        }
+        else
+            users[id].gender="male"
+           
+        users[id].email=card.querySelector(cardID+" #email").value
+        users[id].picture.large=card.querySelector(cardID+" #pic").value
+
+        card.querySelector(cardID+" .card-text").setAttribute("style","display: ")
+
+        var splt=card.querySelector(cardID+" #name").value.split(/ +/);
+        var last
+        [users[id].name.first, ...last]=splt
+        var str=""
+        last.forEach(e=>str+=e+" ") 
+
+        users[id].name.last=str.trim()
+        
+
+        card.querySelector(cardID+" .card-title").innerHTML=users[id].name.title+ " "+users[id].name.first+" " +users[id].name.last
+        card.querySelector(cardID+" .card-text").innerHTML=users[id].email
+        card.querySelector(cardID+" .card-img-top").src=users[id].picture.large
+        cancel(cardID)
+
+        
+      }
+      function cancel(cardID)
+      {
+        
+        document.querySelector(cardID+" .card-body").setAttribute("style","display:  ")
+        document.querySelector(cardID+" .form").setAttribute("style","display: none")
+      }
+
+      showUsers(users,'.row')
+
+    
+    </script>
+
+
+    <script src="node_modules/jquery/dist/jquery.min.js""></script>
+    <script src="node_modules/popper.js/dist/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js "></script>
+   
+  </body>
+  
+</html>
